@@ -19,3 +19,6 @@ Matrix::Matrix(int row, const int col) {
         this->data = vec;
 
 }
+
+
+

@@ -14,7 +14,18 @@ using namespace std;
 class Matrix {
 // friend
 friend Matrix Create_Matrix(int row, int col);
+//operator
+        friend Matrix operator+(const Matrix& lhs, const Matrix& rhs);
+        friend Matrix operator-(const Matrix& lhs, const Matrix& rhs);
+        friend Matrix operator*(const Matrix& lhs, const Matrix& rhs);
+        friend bool operator==(const Matrix& lhs, const Matrix& rhs);
+        friend bool operator!=(const Matrix& lhs, const Matrix& rhs);
+
 public:
+        Matrix operator+=(const Matrix& rhs);
+        Matrix operator-=(const Matrix& rhs);
+        Matrix operator*=(const Matrix& rhs);
+
 
 
 
