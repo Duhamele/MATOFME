@@ -25,6 +25,7 @@ public:
         Matrix operator+=(const Matrix& rhs);
         Matrix operator-=(const Matrix& rhs);
         Matrix operator*=(const Matrix& rhs);
+        Matrix(const Matrix& rhs);
 
         //methode
         /**
@@ -39,8 +40,8 @@ public:
 
 private:
         Matrix(int row, int col);
-int row;
-int col;
+int row{};
+int col{};
         // row[col]
 vector<vector<double>> data;
 

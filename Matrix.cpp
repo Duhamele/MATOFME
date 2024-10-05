@@ -53,6 +53,18 @@ Matrix Matrix::operator-=(const Matrix &rhs) {
         return *this;
 }
 
+Matrix::Matrix(const Matrix &rhs) {
+        this->row = rhs.row;
+        this->col = rhs.col;
+        vector<vector<double>> vec(row, vector<double> (col, 0));
+        this->data = vec;
+        for(int i = 0; i < this->row; i++) {
+                for(int j = 0; j < this->col; j++) {
+                        this->data[i][j] = rhs.data[i][j];
+                }
+        }
+        }
+
 void Matrix::GetSize(int &row, int &col) const {
         row = this->row;
         col = this->col;
