@@ -5,6 +5,8 @@
 #include "Matrix.h"
 
 #include <cstdlib>
+#include <iostream>
+#include <ostream>
 #include <stdlib.h>
 #include <vector>
 using namespace std;
@@ -21,4 +23,41 @@ Matrix::Matrix(int row, const int col) {
 }
 
 
+Matrix Matrix::operator+=(const Matrix &rhs) {
+        if(!this->EqualSize(rhs)) {
+                cout<<"Error in Matrix::operator+="<<endl;
+
+        }
+        else {
+                for(int i = 0; i < this->row; i++) {
+                        for(int j = 0; j < this->col; j++) {
+                                this->data[i][j] = this->data[i][j] + rhs.data[i][j];
+                        }
+                }
+        }
+        return *this;
+}
+
+Matrix Matrix::operator-=(const Matrix &rhs) {
+        if(!this->EqualSize(rhs)) {
+                cout<<"Error in Matrix::operator+="<<endl;
+
+        }
+        else {
+                for(int i = 0; i < this->row; i++) {
+                        for(int j = 0; j < this->col; j++) {
+                                this->data[i][j] = this->data[i][j] - rhs.data[i][j];
+                        }
+                }
+        }
+        return *this;
+}
+
+void Matrix::GetSize(int &row, int &col) const {
+        row = this->row;
+        col = this->col;
+}
+bool Matrix::EqualSize(const Matrix &other) const {
+        return this->row == other.row && this->col == other.col;
+}
 

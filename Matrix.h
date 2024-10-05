@@ -26,6 +26,14 @@ public:
         Matrix operator-=(const Matrix& rhs);
         Matrix operator*=(const Matrix& rhs);
 
+        //methode
+        /**
+         *@brief
+        * @param row
+        * @param col
+*/
+        void GetSize(int& row, int& col) const;
+
 
 
 
@@ -33,7 +41,11 @@ private:
         Matrix(int row, int col);
 int row;
 int col;
+        // row[col]
 vector<vector<double>> data;
+
+        //methode interne
+        bool EqualSize(const Matrix& other) const;
 };
 /**
 *
