@@ -7,12 +7,54 @@
 #include <cstdlib>
 #include <iostream>
 #include <ostream>
-#include <stdlib.h>
 #include <vector>
 using namespace std;
 Matrix Create_Matrix(int row, int col) {
         return Matrix(row, col);
 }
+
+Matrix operator+(const Matrix &lhs, const Matrix &rhs) {
+        Matrix lhs1(lhs);
+        return lhs1 += rhs;
+}
+
+Matrix operator-(const Matrix &lhs, const Matrix &rhs) {
+        Matrix lhs1(lhs);
+        return lhs1 -= rhs;
+}
+
+Matrix operator*(const Matrix &lhs, const Matrix &rhs) {
+        Matrix lhs1(lhs);
+        return lhs1 *= rhs;
+}
+
+bool operator==(const Matrix &lhs, const Matrix &rhs) {
+        if (lhs.row != rhs.row || lhs.col != rhs.col) {return false;}
+        for (int i = 0; i < lhs.row; i++) {
+                for (int j = 0; j < lhs.col; j++) {
+                        if (lhs.data[i][j] != rhs.data[i][j]) {return false;}
+                }
+        }
+        return true;
+}
+
+bool operator!=(const Matrix &lhs, const Matrix &rhs) {
+        return !(lhs == rhs);
+}
+
+/**
+ * TODO
+ * @param rhs
+ * @return
+ */
+Matrix Matrix::operator*=(const Matrix &rhs) {
+        return *this;
+}
+
+/**
+ * TODO
+ */
+Matrix::~Matrix() = default;
 
 Matrix::Matrix(int row, const int col) {
         this->row = row;

@@ -26,6 +26,7 @@ public:
         Matrix operator-=(const Matrix& rhs);
         Matrix operator*=(const Matrix& rhs);
         Matrix(const Matrix& rhs);
+        ~Matrix();
 
         //methode
         /**
