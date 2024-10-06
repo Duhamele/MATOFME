@@ -6,6 +6,12 @@
 #define MATRIX_H
 #include <vector>
 using namespace std;
+/**
+* MatrixFunctionGenerative
+* is a function to genera a matrix that
+* M[i][j]=f(i,j)
+*/
+typedef double (*MatrixFunctionGenerative)(int,int) ;
 /** Class Matrix is a matrix of type double in 2 dimension
 *
 *
@@ -18,6 +24,11 @@ friend Matrix Create_Matrix(int row, int col);
         friend Matrix operator+(const Matrix& lhs, const Matrix& rhs);
         friend Matrix operator-(const Matrix& lhs, const Matrix& rhs);
         friend Matrix operator*(const Matrix& lhs, const Matrix& rhs);
+        /**
+        * TODO is not implement for negative integer
+        * ^ is the power
+*/
+        friend Matrix operator^(const Matrix& lhs, const int& rhs);
         friend bool operator==(const Matrix& lhs, const Matrix& rhs);
         friend bool operator!=(const Matrix& lhs, const Matrix& rhs);
 
@@ -26,6 +37,7 @@ public:
         Matrix operator-=(const Matrix& rhs);
         Matrix operator*=(const Matrix& rhs);
         Matrix(const Matrix& rhs);
+        Matrix(MatrixFunctionGenerative func, int row, int col);
         ~Matrix();
 
         //methode
@@ -35,6 +47,7 @@ public:
         * @param col
 */
         void GetSize(int& row, int& col) const;
+        bool IsSquare() const;
 
 
 

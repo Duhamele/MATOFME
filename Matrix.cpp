@@ -28,6 +28,20 @@ Matrix operator*(const Matrix &lhs, const Matrix &rhs) {
         return lhs1 *= rhs;
 }
 
+Matrix operator^(const Matrix &lhs, const int &rhs) {
+        if(!lhs.IsSquare()){return lhs;}
+        Matrix lhs1(lhs);
+        if(rhs==1) {
+                return lhs1;
+        }
+        if(rhs>1) {
+                for(int i=1; i<rhs; i++) {
+                        lhs1 = lhs1 * lhs;
+                }
+        }
+        return lhs1 ;
+}
+
 bool operator==(const Matrix &lhs, const Matrix &rhs) {
         if (lhs.row != rhs.row || lhs.col != rhs.col) {return false;}
         for (int i = 0; i < lhs.row; i++) {
@@ -122,10 +136,27 @@ Matrix::Matrix(const Matrix &rhs) {
         }
         }
 
+Matrix::Matrix(MatrixFunctionGenerative func, int row, int col) {
+        this->row = row;
+        this->col = col;
+        vector<vector<double>> vec(row, vector<double> (col, 0));
+        this->data = vec;
+        for(int i = 0; i < this->row; i++) {
+                for(int j = 0; j < this->col; j++) {
+                        this->data[i][j] = func(i,j);
+                }
+        }
+}
+
 void Matrix::GetSize(int &row, int &col) const {
         row = this->row;
         col = this->col;
 }
+
+bool Matrix::IsSquare() const {
+        return this->col==this->row;
+}
+
 bool Matrix::EqualSize(const Matrix &other) const {
         return this->row == other.row && this->col == other.col;
 }
