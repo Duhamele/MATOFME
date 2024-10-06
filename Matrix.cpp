@@ -43,11 +43,26 @@ bool operator!=(const Matrix &lhs, const Matrix &rhs) {
 }
 
 /**
- * TODO
+ *
  * @param rhs
  * @return
  */
 Matrix Matrix::operator*=(const Matrix &rhs) {
+        Matrix lhs(*this);
+        vector<vector<double>> vec(row, vector<double> (rhs.col, 0));
+        this->data = vec;
+        for(int i = 0; i < this->row; i++) {
+                for(int j = 0; j < this->col; j++) {
+
+                        double sum = 0;
+                        for(int k = 0; k < lhs.col; k++) {
+                                sum += lhs.data[i][k] * rhs.data[k][j];
+
+                        }
+                        this->data[i][j] = sum;
+                }
+        }
+
         return *this;
 }
 
