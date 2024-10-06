@@ -21,7 +21,15 @@ class Matrix {
 // friend
 friend Matrix Create_Matrix(int row, int col);
 //operator
+        /**
+        *@param lhs size must is equal size's rhs
+        *@param rhs size must is equal size's lhs
+*/
         friend Matrix operator+(const Matrix& lhs, const Matrix& rhs);
+        /**
+        *@param lhs size must is equal size's rhs
+        *@param rhs size must is equal size's lhs
+*/
         friend Matrix operator-(const Matrix& lhs, const Matrix& rhs);
         friend Matrix operator*(const Matrix& lhs, const Matrix& rhs);
         /**
@@ -48,6 +56,7 @@ public:
 */
         void GetSize(int& row, int& col) const;
         bool IsSquare() const;
+        void Print() const;
 
 
 

@@ -160,4 +160,15 @@ bool Matrix::IsSquare() const {
 bool Matrix::EqualSize(const Matrix &other) const {
         return this->row == other.row && this->col == other.col;
 }
+void Matrix::Print() const {
+        printf("Matrix:\n[");
+        for(int i = 0; i < this->row; i++) {
+                printf("[");
+                for(int j = 0; j < this->col; j++) {
+                        printf("%.2f ", this->data[i][j]);
+                }
+                printf("]\n");
+        }
+        printf("]\n");
+}
 
