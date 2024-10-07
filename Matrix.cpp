@@ -9,9 +9,54 @@
 #include <ostream>
 #include <vector>
 using namespace std;
+//Created Matrix
 Matrix Create_Matrix(int row, int col) {
         return Matrix(row, col);
 }
+Matrix Create_Matrix_Identity(int size) {
+        Matrix m(size, size);
+        for (int i = 0; i < size; i++) {
+                m.data[i][i] = 1;
+        }
+        return m;
+}
+
+/**
+ * TODO
+ */
+Matrix::~Matrix() = default;
+
+Matrix::Matrix(int row, const int col) {
+        this->row = row;
+        this->col = col;
+        vector<vector<double>> vec(row, vector<double> (col, 0));
+        this->data = vec;
+
+}
+Matrix::Matrix(const Matrix &rhs) {
+        this->row = rhs.row;
+        this->col = rhs.col;
+        vector<vector<double>> vec(row, vector<double> (col, 0));
+        this->data = vec;
+        for(int i = 0; i < this->row; i++) {
+                for(int j = 0; j < this->col; j++) {
+                        this->data[i][j] = rhs.data[i][j];
+                }
+        }
+}
+
+Matrix::Matrix(MatrixFunctionGenerative func, int row, int col) {
+        this->row = row;
+        this->col = col;
+        vector<vector<double>> vec(row, vector<double> (col, 0));
+        this->data = vec;
+        for(int i = 0; i < this->row; i++) {
+                for(int j = 0; j < this->col; j++) {
+                        this->data[i][j] = func(i,j);
+                }
+        }
+}
+//Operatoc
 
 Matrix operator+(const Matrix &lhs, const Matrix &rhs) {
         Matrix lhs1(lhs);
@@ -80,18 +125,7 @@ Matrix Matrix::operator*=(const Matrix &rhs) {
         return *this;
 }
 
-/**
- * TODO
- */
-Matrix::~Matrix() = default;
 
-Matrix::Matrix(int row, const int col) {
-        this->row = row;
-        this->col = col;
-        vector<vector<double>> vec(row, vector<double> (col, 0));
-        this->data = vec;
-
-}
 
 
 Matrix Matrix::operator+=(const Matrix &rhs) {
@@ -124,30 +158,8 @@ Matrix Matrix::operator-=(const Matrix &rhs) {
         return *this;
 }
 
-Matrix::Matrix(const Matrix &rhs) {
-        this->row = rhs.row;
-        this->col = rhs.col;
-        vector<vector<double>> vec(row, vector<double> (col, 0));
-        this->data = vec;
-        for(int i = 0; i < this->row; i++) {
-                for(int j = 0; j < this->col; j++) {
-                        this->data[i][j] = rhs.data[i][j];
-                }
-        }
-        }
 
-Matrix::Matrix(MatrixFunctionGenerative func, int row, int col) {
-        this->row = row;
-        this->col = col;
-        vector<vector<double>> vec(row, vector<double> (col, 0));
-        this->data = vec;
-        for(int i = 0; i < this->row; i++) {
-                for(int j = 0; j < this->col; j++) {
-                        this->data[i][j] = func(i,j);
-                }
-        }
-}
-
+//Methode
 void Matrix::GetSize(int &row, int &col) const {
         row = this->row;
         col = this->col;

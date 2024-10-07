@@ -19,7 +19,8 @@ typedef double (*MatrixFunctionGenerative)(int,int) ;
 */
 class Matrix {
 // friend
-friend Matrix Create_Matrix(int row, int col);
+        friend Matrix Create_Matrix(int row, int col);
+        friend Matrix Create_Matrix_Identity(int size);
 //operator
         /**
         *@param lhs size must is equal size's rhs
@@ -44,6 +45,7 @@ public:
         Matrix operator+=(const Matrix& rhs);
         Matrix operator-=(const Matrix& rhs);
         Matrix operator*=(const Matrix& rhs);
+
         Matrix(const Matrix& rhs);
         Matrix(MatrixFunctionGenerative func, int row, int col);
         ~Matrix();
@@ -75,5 +77,10 @@ vector<vector<double>> data;
 *
 */
 Matrix Create_Matrix(int row, int col);
+/**
+* @param size > 0 is the size of matrix
+* @return the matrix I of size size
+*/
+Matrix Create_Matrix_Identity(int size);
 
 #endif //MATRIX_H
