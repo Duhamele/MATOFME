@@ -58,6 +58,9 @@ Matrix::Matrix(MatrixFunctionGenerative func, int row, int col) {
         if(row<=0 || col<=0 ) {
                 throw runtime_error("Invalid Matrix Size");
         }
+        if(func==nullptr) {
+                throw runtime_error("Invalid Matrix Function");
+        }
         this->row = row;
         this->col = col;
         vector<vector<double>> vec(row, vector<double> (col, 0));
@@ -92,7 +95,9 @@ Matrix operator*(const Matrix &lhs, const Matrix &rhs) {
 }
 
 Matrix operator^(const Matrix &lhs, const int &rhs) {
-        if(!lhs.IsSquare()){return lhs;}
+        if(!lhs.IsSquare()) {
+                throw runtime_error("Matrix isn't Square for the power");
+        }
         Matrix lhs1(lhs);
         if(rhs==1) {
                 return lhs1;
@@ -109,7 +114,10 @@ Matrix operator*(const int &lhs, const Matrix &rhs) {
         Matrix rhs1(rhs);
         return rhs1 *= lhs;
 }
-
+Matrix operator*(const double &lhs, const Matrix &rhs) {
+        Matrix rhs1(rhs);
+        return rhs1 *= lhs;
+}
 Matrix Matrix::operator*=(const int &rhs) {
         for(int i=0; i<this->row; i++) {
                 for(int j=0; j<this->col; j++) {
@@ -157,6 +165,9 @@ Matrix abs(Matrix &lhs) {
  * @return
  */
 Matrix Matrix::operator*=(const Matrix &rhs) {
+        if(this->row!=rhs.col) {
+                throw runtime_error("Matrix does not have the same size");
+        }
         Matrix lhs(*this);
         vector<vector<double>> vec(row, vector<double> (rhs.col, 0));
         this->data = vec;
@@ -180,7 +191,7 @@ Matrix Matrix::operator*=(const Matrix &rhs) {
 
 Matrix Matrix::operator+=(const Matrix &rhs) {
         if(!this->EqualSize(rhs)) {
-                cout<<"Error in Matrix::operator+="<<endl;
+                throw runtime_error("Matrix does not have the same size");
 
         }
         else {
@@ -195,7 +206,7 @@ Matrix Matrix::operator+=(const Matrix &rhs) {
 
 Matrix Matrix::operator-=(const Matrix &rhs) {
         if(!this->EqualSize(rhs)) {
-                cout<<"Error in Matrix::operator+="<<endl;
+                throw runtime_error("Matrix does not have the same size");
 
         }
         else {

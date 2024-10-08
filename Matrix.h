@@ -39,6 +39,7 @@ class Matrix {
 */
         friend Matrix operator^(const Matrix& lhs, const int& rhs);
         friend Matrix operator*(const int& lhs, const Matrix& rhs);
+        friend Matrix operator*(const double &lhs, const Matrix &rhs);
         friend bool operator==(const Matrix& lhs, const Matrix& rhs);
         friend bool operator!=(const Matrix& lhs, const Matrix& rhs);
         friend Matrix abs(Matrix& lhs);
