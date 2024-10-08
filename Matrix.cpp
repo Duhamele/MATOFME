@@ -100,6 +100,14 @@ Matrix Matrix::operator*=(const int &rhs) {
         }
         return *this;
 }
+Matrix Matrix::operator*=(const double &rhs) {
+        for(int i=0; i<this->row; i++) {
+                for(int j=0; j<this->col; j++) {
+                        this->data[i][j] *= rhs;
+                }
+        }
+        return *this;
+}
 
 bool operator==(const Matrix &lhs, const Matrix &rhs) {
         if (lhs.row != rhs.row || lhs.col != rhs.col) {return false;}

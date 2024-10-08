@@ -48,6 +48,7 @@ public:
         Matrix operator-=(const Matrix& rhs);
         Matrix operator*=(const Matrix& rhs);
         Matrix operator*=(const int& rhs);
+        Matrix operator*=(const double& rhs);
 
         Matrix(const Matrix& rhs);
         Matrix(MatrixFunctionGenerative func, int row, int col);
