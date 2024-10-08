@@ -87,6 +87,20 @@ Matrix operator^(const Matrix &lhs, const int &rhs) {
         return lhs1 ;
 }
 
+Matrix operator*(const int &lhs, const Matrix &rhs) {
+        Matrix rhs1(rhs);
+        return rhs1 *= lhs;
+}
+
+Matrix Matrix::operator*=(const int &rhs) {
+        for(int i=0; i<this->row; i++) {
+                for(int j=0; j<this->col; j++) {
+                        this->data[i][j] *= rhs;
+                }
+        }
+        return *this;
+}
+
 bool operator==(const Matrix &lhs, const Matrix &rhs) {
         if (lhs.row != rhs.row || lhs.col != rhs.col) {return false;}
         for (int i = 0; i < lhs.row; i++) {

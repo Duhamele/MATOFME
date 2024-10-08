@@ -38,6 +38,7 @@ class Matrix {
         * ^ is the power
 */
         friend Matrix operator^(const Matrix& lhs, const int& rhs);
+        friend Matrix operator*(const int& lhs, const Matrix& rhs);
         friend bool operator==(const Matrix& lhs, const Matrix& rhs);
         friend bool operator!=(const Matrix& lhs, const Matrix& rhs);
 
@@ -45,6 +46,7 @@ public:
         Matrix operator+=(const Matrix& rhs);
         Matrix operator-=(const Matrix& rhs);
         Matrix operator*=(const Matrix& rhs);
+        Matrix operator*=(const int& rhs);
 
         Matrix(const Matrix& rhs);
         Matrix(MatrixFunctionGenerative func, int row, int col);
@@ -57,7 +59,7 @@ public:
         * @param col
 */
         void GetSize(int& row, int& col) const;
-        bool IsSquare() const;
+        [[nodiscard]] bool IsSquare() const;
         void Print() const;
 
 
@@ -71,16 +73,16 @@ int col{};
 vector<vector<double>> data;
 
         //methode interne
-        bool EqualSize(const Matrix& other) const;
+        [[nodiscard]] bool EqualSize(const Matrix& other) const;
 };
 /**
 *
 */
-Matrix Create_Matrix(int row, int col);
+[[nodiscard]] Matrix Create_Matrix(int row, int col);
 /**
 * @param size > 0 is the size of matrix
 * @return the matrix I of size size
 */
-Matrix Create_Matrix_Identity(int size);
+[[nodiscard]] Matrix Create_Matrix_Identity(int size);
 
 #endif //MATRIX_H
