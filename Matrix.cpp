@@ -115,6 +115,16 @@ bool operator!=(const Matrix &lhs, const Matrix &rhs) {
         return !(lhs == rhs);
 }
 
+Matrix abs(Matrix &lhs) {
+        Matrix lhs1(lhs);
+        for (int i = 0; i < lhs1.row; i++) {
+                for (int j = 0; j < lhs1.col; j++) {
+                        lhs1.data[i][j] = abs(lhs.data[i][j]);
+                }
+        }
+        return lhs1;
+}
+
 /**
  *
  * @param rhs
@@ -196,5 +206,23 @@ void Matrix::Print() const {
                 printf("]\n");
         }
         printf("]\n");
+}
+
+double Matrix::sum() const {
+        double sum=0;
+        for (int i=0;i<this->row;i++) {
+                for(int j=0;j<this->col;j++) {
+                        sum+=this->data[i][j];
+                }
+        }
+        return sum;
+}
+
+double Matrix::trace() const {
+        double sum=0;
+        for (int i=0;i<this->row&&(i<this->col);i++) {
+                sum+=this->data[i][i];
+        }
+        return sum;
 }
 

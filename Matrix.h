@@ -41,6 +41,7 @@ class Matrix {
         friend Matrix operator*(const int& lhs, const Matrix& rhs);
         friend bool operator==(const Matrix& lhs, const Matrix& rhs);
         friend bool operator!=(const Matrix& lhs, const Matrix& rhs);
+        friend Matrix abs(Matrix& lhs);
 
 public:
         Matrix operator+=(const Matrix& rhs);
@@ -61,6 +62,9 @@ public:
         void GetSize(int& row, int& col) const;
         [[nodiscard]] bool IsSquare() const;
         void Print() const;
+        [[nodiscard]] double sum() const;
+        [[nodiscard]] double trace() const;
+
 
 
 
