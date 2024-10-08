@@ -11,9 +11,15 @@
 using namespace std;
 //Created Matrix
 Matrix Create_Matrix(int row, int col) {
+        if(row<=0 || col<=0 ) {
+                throw runtime_error("Invalid Matrix Size");
+        }
         return Matrix(row, col);
 }
 Matrix Create_Matrix_Identity(int size) {
+        if(size<=0) {
+                throw runtime_error("Matrix size must be greater than zero");
+        }
         Matrix m(size, size);
         for (int i = 0; i < size; i++) {
                 m.data[i][i] = 1;
@@ -27,6 +33,9 @@ Matrix Create_Matrix_Identity(int size) {
 Matrix::~Matrix() = default;
 
 Matrix::Matrix(int row, const int col) {
+        if(row<=0 || col<=0 ) {
+                throw runtime_error("Invalid Matrix Size");
+        }
         this->row = row;
         this->col = col;
         vector<vector<double>> vec(row, vector<double> (col, 0));
@@ -46,6 +55,9 @@ Matrix::Matrix(const Matrix &rhs) {
 }
 
 Matrix::Matrix(MatrixFunctionGenerative func, int row, int col) {
+        if(row<=0 || col<=0 ) {
+                throw runtime_error("Invalid Matrix Size");
+        }
         this->row = row;
         this->col = col;
         vector<vector<double>> vec(row, vector<double> (col, 0));
@@ -59,11 +71,17 @@ Matrix::Matrix(MatrixFunctionGenerative func, int row, int col) {
 //Operatoc
 
 Matrix operator+(const Matrix &lhs, const Matrix &rhs) {
+        if(!lhs.EqualSize(rhs)) {
+                throw runtime_error("Matrix does not have the same size");
+        }
         Matrix lhs1(lhs);
         return lhs1 += rhs;
 }
 
 Matrix operator-(const Matrix &lhs, const Matrix &rhs) {
+        if(!lhs.EqualSize(rhs)) {
+                throw runtime_error("Matrix does not have the same size");
+        }
         Matrix lhs1(lhs);
         return lhs1 -= rhs;
 }
