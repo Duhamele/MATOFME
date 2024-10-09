@@ -4,6 +4,9 @@
 
 #ifndef MATRIX_H
 #define MATRIX_H
+#include <fstream>
+#include <string>
+
 #include <vector>
 using namespace std;
 /**
@@ -66,6 +69,7 @@ public:
         void Print() const;
         [[nodiscard]] double sum() const;
         [[nodiscard]] double trace() const;
+        int WriteMatrixCreatedFile(std::string name,std::string path ) const;
 
 
 

@@ -5,6 +5,7 @@
 #include "Matrix.h"
 
 #include <cstdlib>
+#include <fstream>
 #include <iostream>
 #include <ostream>
 #include <vector>
@@ -261,5 +262,31 @@ double Matrix::trace() const {
                 sum+=this->data[i][i];
         }
         return sum;
+}
+
+int Matrix::WriteMatrixCreatedFile(std::string name, std::string path) const {
+        if(name.empty()) {
+                throw runtime_error("Matrix name cannot be empty");
+        }
+        if(path.empty()) {
+                path = "./" + name + ".mat.matrix";
+        }else {
+                path.append("/" + name + ".mat.matrix");
+        }
+        std::ofstream fichier(path.c_str());
+        if(!fichier.is_open()) {
+                perror("Error opening file");
+                return 1;
+        }
+        for(int i=0;i<this->row;i++) {
+                for(int j=0;j<this->col;j++) {
+                        fichier << this->data[i][j] << ";";
+                }
+                fichier << "\n";
+        }
+        fichier.close();
+        return 0;
+
+
 }
 
