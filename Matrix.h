@@ -20,43 +20,43 @@ typedef double (*MatrixFunctionGenerative)(int,int) ;
 *
 *
 */
-class Matrix {
+class Matrix_d {
 // friend
-        friend Matrix Create_Matrix(int row, int col);
-        friend Matrix Create_Matrix_Identity(int size);
+        friend Matrix_d Create_Matrix(int row, int col);
+        friend Matrix_d Create_Matrix_Identity(int size);
 //operator
         /**
         *@param lhs size must is equal size's rhs
         *@param rhs size must is equal size's lhs
 */
-        friend Matrix operator+(const Matrix& lhs, const Matrix& rhs);
+        friend Matrix_d operator+(const Matrix_d& lhs, const Matrix_d& rhs);
         /**
         *@param lhs size must is equal size's rhs
         *@param rhs size must is equal size's lhs
 */
-        friend Matrix operator-(const Matrix& lhs, const Matrix& rhs);
-        friend Matrix operator*(const Matrix& lhs, const Matrix& rhs);
+        friend Matrix_d operator-(const Matrix_d& lhs, const Matrix_d& rhs);
+        friend Matrix_d operator*(const Matrix_d& lhs, const Matrix_d& rhs);
         /**
         * TODO is not implement for negative integer
         * ^ is the power
 */
-        friend Matrix operator^(const Matrix& lhs, const int& rhs);
-        friend Matrix operator*(const int& lhs, const Matrix& rhs);
-        friend Matrix operator*(const double &lhs, const Matrix &rhs);
-        friend bool operator==(const Matrix& lhs, const Matrix& rhs);
-        friend bool operator!=(const Matrix& lhs, const Matrix& rhs);
-        friend Matrix abs(Matrix& lhs);
+        friend Matrix_d operator^(const Matrix_d& lhs, const int& rhs);
+        friend Matrix_d operator*(const int& lhs, const Matrix_d& rhs);
+        friend Matrix_d operator*(const double &lhs, const Matrix_d &rhs);
+        friend bool operator==(const Matrix_d& lhs, const Matrix_d& rhs);
+        friend bool operator!=(const Matrix_d& lhs, const Matrix_d& rhs);
+        friend Matrix_d abs(Matrix_d& lhs);
 
 public:
-        Matrix operator+=(const Matrix& rhs);
-        Matrix operator-=(const Matrix& rhs);
-        Matrix operator*=(const Matrix& rhs);
-        Matrix operator*=(const int& rhs);
-        Matrix operator*=(const double& rhs);
+        Matrix_d operator+=(const Matrix_d& rhs);
+        Matrix_d operator-=(const Matrix_d& rhs);
+        Matrix_d operator*=(const Matrix_d& rhs);
+        Matrix_d operator*=(const int& rhs);
+        Matrix_d operator*=(const double& rhs);
 
-        Matrix(const Matrix& rhs);
-        Matrix(MatrixFunctionGenerative func, int row, int col);
-        ~Matrix();
+        Matrix_d(const Matrix_d& rhs);
+        Matrix_d(MatrixFunctionGenerative func, int row, int col);
+        ~Matrix_d();
 
         //methode
         /**
@@ -76,23 +76,23 @@ public:
 
 
 private:
-        Matrix(int row, int col);
+        Matrix_d(int row, int col);
 int row{};
 int col{};
         // row[col]
 vector<vector<double>> data;
 
         //methode interne
-        [[nodiscard]] bool EqualSize(const Matrix& other) const;
+        [[nodiscard]] bool EqualSize(const Matrix_d& other) const;
 };
 /**
 *
 */
-[[nodiscard]] Matrix Create_Matrix(int row, int col);
+[[nodiscard]] Matrix_d Create_Matrix(int row, int col);
 /**
 * @param size > 0 is the size of matrix
 * @return the matrix I of size size
 */
-[[nodiscard]] Matrix Create_Matrix_Identity(int size);
+[[nodiscard]] Matrix_d Create_Matrix_Identity(int size);
 
 #endif //MATRIX_H

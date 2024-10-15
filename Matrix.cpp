@@ -10,18 +10,18 @@
 #include <ostream>
 #include <vector>
 using namespace std;
-//Created Matrix
-Matrix Create_Matrix(int row, int col) {
+//Created Matrix_d
+Matrix_d Create_Matrix(int row, int col) {
         if(row<=0 || col<=0 ) {
-                throw runtime_error("Invalid Matrix Size");
+                throw runtime_error("Invalid Matrix_d Size");
         }
-        return Matrix(row, col);
+        return Matrix_d(row, col);
 }
-Matrix Create_Matrix_Identity(int size) {
+Matrix_d Create_Matrix_Identity(int size) {
         if(size<=0) {
-                throw runtime_error("Matrix size must be greater than zero");
+                throw runtime_error("Matrix_d size must be greater than zero");
         }
-        Matrix m(size, size);
+        Matrix_d m(size, size);
         for (int i = 0; i < size; i++) {
                 m.data[i][i] = 1;
         }
@@ -31,11 +31,11 @@ Matrix Create_Matrix_Identity(int size) {
 /**
  * TODO
  */
-Matrix::~Matrix() = default;
+Matrix_d::~Matrix_d() = default;
 
-Matrix::Matrix(int row, const int col) {
+Matrix_d::Matrix_d(int row, const int col) {
         if(row<=0 || col<=0 ) {
-                throw runtime_error("Invalid Matrix Size");
+                throw runtime_error("Invalid Matrix_d Size");
         }
         this->row = row;
         this->col = col;
@@ -43,7 +43,7 @@ Matrix::Matrix(int row, const int col) {
         this->data = vec;
 
 }
-Matrix::Matrix(const Matrix &rhs) {
+Matrix_d::Matrix_d(const Matrix_d &rhs) {
         this->row = rhs.row;
         this->col = rhs.col;
         vector<vector<double>> vec(row, vector<double> (col, 0));
@@ -55,12 +55,12 @@ Matrix::Matrix(const Matrix &rhs) {
         }
 }
 
-Matrix::Matrix(MatrixFunctionGenerative func, int row, int col) {
+Matrix_d::Matrix_d(MatrixFunctionGenerative func, int row, int col) {
         if(row<=0 || col<=0 ) {
-                throw runtime_error("Invalid Matrix Size");
+                throw runtime_error("Invalid Matrix_d Size");
         }
         if(func==nullptr) {
-                throw runtime_error("Invalid Matrix Function");
+                throw runtime_error("Invalid Matrix_d Function");
         }
         this->row = row;
         this->col = col;
@@ -74,32 +74,32 @@ Matrix::Matrix(MatrixFunctionGenerative func, int row, int col) {
 }
 //Operatoc
 
-Matrix operator+(const Matrix &lhs, const Matrix &rhs) {
+Matrix_d operator+(const Matrix_d &lhs, const Matrix_d &rhs) {
         if(!lhs.EqualSize(rhs)) {
-                throw runtime_error("Matrix does not have the same size");
+                throw runtime_error("Matrix_d does not have the same size");
         }
-        Matrix lhs1(lhs);
+        Matrix_d lhs1(lhs);
         return lhs1 += rhs;
 }
 
-Matrix operator-(const Matrix &lhs, const Matrix &rhs) {
+Matrix_d operator-(const Matrix_d &lhs, const Matrix_d &rhs) {
         if(!lhs.EqualSize(rhs)) {
-                throw runtime_error("Matrix does not have the same size");
+                throw runtime_error("Matrix_d does not have the same size");
         }
-        Matrix lhs1(lhs);
+        Matrix_d lhs1(lhs);
         return lhs1 -= rhs;
 }
 
-Matrix operator*(const Matrix &lhs, const Matrix &rhs) {
-        Matrix lhs1(lhs);
+Matrix_d operator*(const Matrix_d &lhs, const Matrix_d &rhs) {
+        Matrix_d lhs1(lhs);
         return lhs1 *= rhs;
 }
 
-Matrix operator^(const Matrix &lhs, const int &rhs) {
+Matrix_d operator^(const Matrix_d &lhs, const int &rhs) {
         if(!lhs.IsSquare()) {
-                throw runtime_error("Matrix isn't Square for the power");
+                throw runtime_error("Matrix_d isn't Square for the power");
         }
-        Matrix lhs1(lhs);
+        Matrix_d lhs1(lhs);
         if(rhs==1) {
                 return lhs1;
         }
@@ -111,15 +111,15 @@ Matrix operator^(const Matrix &lhs, const int &rhs) {
         return lhs1 ;
 }
 
-Matrix operator*(const int &lhs, const Matrix &rhs) {
-        Matrix rhs1(rhs);
+Matrix_d operator*(const int &lhs, const Matrix_d &rhs) {
+        Matrix_d rhs1(rhs);
         return rhs1 *= lhs;
 }
-Matrix operator*(const double &lhs, const Matrix &rhs) {
-        Matrix rhs1(rhs);
+Matrix_d operator*(const double &lhs, const Matrix_d &rhs) {
+        Matrix_d rhs1(rhs);
         return rhs1 *= lhs;
 }
-Matrix Matrix::operator*=(const int &rhs) {
+Matrix_d Matrix_d::operator*=(const int &rhs) {
         for(int i=0; i<this->row; i++) {
                 for(int j=0; j<this->col; j++) {
                         this->data[i][j] *= rhs;
@@ -127,7 +127,7 @@ Matrix Matrix::operator*=(const int &rhs) {
         }
         return *this;
 }
-Matrix Matrix::operator*=(const double &rhs) {
+Matrix_d Matrix_d::operator*=(const double &rhs) {
         for(int i=0; i<this->row; i++) {
                 for(int j=0; j<this->col; j++) {
                         this->data[i][j] *= rhs;
@@ -136,7 +136,7 @@ Matrix Matrix::operator*=(const double &rhs) {
         return *this;
 }
 
-bool operator==(const Matrix &lhs, const Matrix &rhs) {
+bool operator==(const Matrix_d &lhs, const Matrix_d &rhs) {
         if (lhs.row != rhs.row || lhs.col != rhs.col) {return false;}
         for (int i = 0; i < lhs.row; i++) {
                 for (int j = 0; j < lhs.col; j++) {
@@ -146,12 +146,12 @@ bool operator==(const Matrix &lhs, const Matrix &rhs) {
         return true;
 }
 
-bool operator!=(const Matrix &lhs, const Matrix &rhs) {
+bool operator!=(const Matrix_d &lhs, const Matrix_d &rhs) {
         return !(lhs == rhs);
 }
 
-Matrix abs(Matrix &lhs) {
-        Matrix lhs1(lhs);
+Matrix_d abs(Matrix_d &lhs) {
+        Matrix_d lhs1(lhs);
         for (int i = 0; i < lhs1.row; i++) {
                 for (int j = 0; j < lhs1.col; j++) {
                         lhs1.data[i][j] = abs(lhs.data[i][j]);
@@ -165,11 +165,11 @@ Matrix abs(Matrix &lhs) {
  * @param rhs
  * @return
  */
-Matrix Matrix::operator*=(const Matrix &rhs) {
+Matrix_d Matrix_d::operator*=(const Matrix_d &rhs) {
         if(this->row!=rhs.col) {
-                throw runtime_error("Matrix does not have the same size");
+                throw runtime_error("Matrix_d does not have the same size");
         }
-        Matrix lhs(*this);
+        Matrix_d lhs(*this);
         vector<vector<double>> vec(row, vector<double> (rhs.col, 0));
         this->data = vec;
         for(int i = 0; i < this->row; i++) {
@@ -190,9 +190,9 @@ Matrix Matrix::operator*=(const Matrix &rhs) {
 
 
 
-Matrix Matrix::operator+=(const Matrix &rhs) {
+Matrix_d Matrix_d::operator+=(const Matrix_d &rhs) {
         if(!this->EqualSize(rhs)) {
-                throw runtime_error("Matrix does not have the same size");
+                throw runtime_error("Matrix_d does not have the same size");
 
         }
         else {
@@ -205,9 +205,9 @@ Matrix Matrix::operator+=(const Matrix &rhs) {
         return *this;
 }
 
-Matrix Matrix::operator-=(const Matrix &rhs) {
+Matrix_d Matrix_d::operator-=(const Matrix_d &rhs) {
         if(!this->EqualSize(rhs)) {
-                throw runtime_error("Matrix does not have the same size");
+                throw runtime_error("Matrix_d does not have the same size");
 
         }
         else {
@@ -222,20 +222,20 @@ Matrix Matrix::operator-=(const Matrix &rhs) {
 
 
 //Methode
-void Matrix::GetSize(int &row, int &col) const {
+void Matrix_d::GetSize(int &row, int &col) const {
         row = this->row;
         col = this->col;
 }
 
-bool Matrix::IsSquare() const {
+bool Matrix_d::IsSquare() const {
         return this->col==this->row;
 }
 
-bool Matrix::EqualSize(const Matrix &other) const {
+bool Matrix_d::EqualSize(const Matrix_d &other) const {
         return this->row == other.row && this->col == other.col;
 }
-void Matrix::Print() const {
-        printf("Matrix:\n[");
+void Matrix_d::Print() const {
+        printf("Matrix_d:\n[");
         for(int i = 0; i < this->row; i++) {
                 printf("[");
                 for(int j = 0; j < this->col; j++) {
@@ -246,7 +246,7 @@ void Matrix::Print() const {
         printf("]\n");
 }
 
-double Matrix::sum() const {
+double Matrix_d::sum() const {
         double sum=0;
         for (int i=0;i<this->row;i++) {
                 for(int j=0;j<this->col;j++) {
@@ -256,7 +256,7 @@ double Matrix::sum() const {
         return sum;
 }
 
-double Matrix::trace() const {
+double Matrix_d::trace() const {
         double sum=0;
         for (int i=0;i<this->row&&(i<this->col);i++) {
                 sum+=this->data[i][i];
@@ -264,9 +264,9 @@ double Matrix::trace() const {
         return sum;
 }
 
-int Matrix::WriteMatrixCreatedFile(std::string name, std::string path) const {
+int Matrix_d::WriteMatrixCreatedFile(std::string name, std::string path) const {
         if(name.empty()) {
-                throw runtime_error("Matrix name cannot be empty");
+                throw runtime_error("Matrix_d name cannot be empty");
         }
         if(path.empty()) {
                 path = "./" + name + ".mat.matrix";
