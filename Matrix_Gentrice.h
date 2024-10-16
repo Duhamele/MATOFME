@@ -1,10 +1,11 @@
 #ifndef MATRIX_GENTRICE_H
 #define MATRIX_GENTRICE_H
-
-template<typename Type>typedef Type (*function_gen)(int row,int col);
+#include <iostream>
+template<typename T>
+using function_gen= T (int row,int col);
 
 template<typename Type>class Matrix {
-private:
+protected:
         int rows;
         int cols;
         vector<vector<Type> > matrix;
@@ -30,10 +31,27 @@ private:
                         }
                 }
         }
-        void transpose() {
-
-
+        Matrix transpose() {
+               Matrix m(cols,rows,0);
+                for (int i = 0; i < cols; i++) {
+                        for (int j = 0; j < rows; j++) {
+                                m.matrix[i][j] = this->matrix[j][i];
+                        }
+                }
+                return m;
         }
+        inline void transpose_() {
+                this=transpose();
+        }
+        void print() {
+                for (int i = 0; i < rows; i++) {
+                        for (int j = 0; j < cols; j++) {
+                                std::cout << matrix[i][j] << " ";
+                        }
+                        std::cout << std::endl;
+                }
+        }
+
 };
 
 

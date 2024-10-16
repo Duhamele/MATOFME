@@ -6,6 +6,9 @@
 double func(int i, int j) {
         return i+j;
 }
+int fonc(int i, int j) {
+        return i+j;
+}
 int main() {
         Matrix_d m(func,10,10);
         m.Print();
@@ -25,5 +28,11 @@ int main() {
         a*=0.125868544754;
         a.Print();
         m.Print();
+        Matrix<int> v(2,1,4);
+        v.print();
+        v=v.transpose();
+        v.print();
+        Matrix<int> v2(2,5,fonc);
+        v2.print();
         return a.WriteMatrixCreatedFile("e","");
 }
