@@ -5,32 +5,32 @@
 #ifndef FONCTION_H
 #define FONCTION_H
 /**
-* Class Fonction est la description de de fonction de type (A->A) A est le Type
+* Class Function est la description de de fonction de type (A->A) A est le Type
 *
 */
 template<typename Type>
-class Fonction {
+class Function {
 
         public:
-        virtual ~Fonction() = default;
+        virtual ~Function() = default;
         /**
         * @brief copie la class et tous ces menbre
 */
-        [[nodiscard]] virtual Fonction<Type>* copy()=0;
+        [[nodiscard]] virtual Function<Type>* copy()=0;
 
         /**
         * @brief rencoie le resultat de f(x)
 */
         [[nodiscard]] virtual Type evaluation(Type x) =0;
         /**
-        * @brief
+        * @brief return a new function* that it is
 */
-        [[nodiscard]] virtual Fonction<Type>* derive()=0;
-        [[nodiscard]] friend Fonction<Type>* operator+(Fonction<Type>* f1, Fonction<Type>* f2);
+        [[nodiscard]] virtual Function<Type>* derive()=0;
+        [[nodiscard]] friend Function<Type>* operator+(Function<Type>* f1, Function<Type>* f2);
 
 };
 template<typename Type>
-class Constant:public Fonction<Type> {
+class Constant:public Function<Type> {
 private:
         Type value;
         public:
@@ -38,10 +38,10 @@ private:
         [[nodiscard]] Type evaluation(Type x) override {
                 return value;
         }
-        [[nodiscard]] Fonction<Type>* derive() override {
+        [[nodiscard]] Function<Type>* derive() override {
                 return new Constant<Type>(Type(0));
         }
-        [[nodiscard]] Fonction<Type>* copy() override {
+        [[nodiscard]] Function<Type>* copy() override {
                 return new Constant<Type>(value);
         }
         [[nodiscard]] Type getValue() {
@@ -52,7 +52,7 @@ private:
         }
 };
 template<typename Type>
-class Variable:public Fonction<Type> {
+class Variable:public Function<Type> {
 public:
         [[nodiscard]] Type evaluation(Type x) override {
                 return x;
@@ -67,12 +67,12 @@ public:
 };
 
 template<typename Type>
-class Addition:public Fonction<Type> {
+class Addition:public Function<Type> {
         private:
-        Fonction<Type>* first;
-        Fonction<Type>* second;
+        Function<Type>* first;
+        Function<Type>* second;
         public:
-        Addition(Fonction<Type> first,Fonction<Type> second):first(first),second(second){};
+        Addition(Function<Type> first,Function<Type> second):first(first),second(second){};
         [[nodiscard]] Type evaluation(Type x) override {
                 return first->evaluation(x) + second->evaluation(x);
         }
@@ -88,12 +88,12 @@ class Addition:public Fonction<Type> {
         }
 };
 template<typename Type>
-class Mutplication:public Fonction<Type> {
+class Mutplication:public Function<Type> {
         private:
-        Fonction<Type>* first;
-        Fonction<Type>* second;
+        Function<Type>* first;
+        Function<Type>* second;
         public:
-        Mutplication(Fonction<Type> first,Fonction<Type> second):first(first),second(second){};
+        Mutplication(Function<Type> first,Function<Type> second):first(first),second(second){};
         ~Mutplication() override{
                 delete first;
                 delete second;
@@ -110,17 +110,17 @@ class Mutplication:public Fonction<Type> {
         }
 };
 template<typename Type>
-class Power:public Fonction<Type> {
+class Power:public Function<Type> {
 private:
         int exponent;
-        Fonction<Type>* menber;
+        Function<Type>* menber;
 public:
-        Power(Fonction<Type>* menber,int exponent):exponent(exponent),menber(menber){}
+        Power(Function<Type>* menber,int exponent):exponent(exponent),menber(menber){}
 
         [[nodiscard]] Type evaluation(Type x) override {
                 return pow(x, exponent);
         }
-        [[nodiscard]] Fonction<Type>* derive() override {
+        [[nodiscard]] Function<Type>* derive() override {
                 return new Mutplication<Type>(menber->derive(), new Power<Type>(menber->copy(), exponent-1));
         }
         [[nodiscard]] Power<Type>* copy() override {
@@ -128,7 +128,7 @@ public:
         }
 };
 template<typename Type>
-Fonction<Type> operator+(Fonction<Type>* f1,Fonction<Type>* f2 ) {
+Function<Type> operator+(Function<Type>* f1,Function<Type>* f2 ) {
         return new Addition<Type>(f1->copy(),f2->copy());
 }
 
