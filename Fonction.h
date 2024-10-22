@@ -26,6 +26,7 @@ class Fonction {
         * @brief
 */
         [[nodiscard]] virtual Fonction<Type>* derive()=0;
+        [[nodiscard]] friend Fonction<Type>* operator+(Fonction<Type>* f1, Fonction<Type>* f2);
 
 };
 template<typename Type>
@@ -81,7 +82,7 @@ class Addition:public Fonction<Type> {
         [[nodiscard]] Variable<Type>* copy() override {
                 return new Addition<Type>(first->copy(), second->copy());
         }
-        ~Addition() {
+        ~Addition() override{
                 delete first;
                 delete second;
         }
@@ -93,7 +94,7 @@ class Mutplication:public Fonction<Type> {
         Fonction<Type>* second;
         public:
         Mutplication(Fonction<Type> first,Fonction<Type> second):first(first),second(second){};
-        ~Mutplication() {
+        ~Mutplication() override{
                 delete first;
                 delete second;
         }
@@ -126,5 +127,9 @@ public:
                 return new Power<Type>(menber->copy(), exponent);
         }
 };
+template<typename Type>
+Fonction<Type> operator+(Fonction<Type>* f1,Fonction<Type>* f2 ) {
+        return new Addition<Type>(f1->copy(),f2->copy());
+}
 
 #endif //FONCTION_H
